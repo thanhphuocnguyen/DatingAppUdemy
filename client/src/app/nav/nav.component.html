@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarSupportedContent"
+    >
+      <div class="d-flex">
+        <a class="navbar-brand" href="#">Dating App</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul
+          class="navbar-nav me-auto mb-2 mb-lg-0"
+          *ngIf="currentUser$ | async"
+        >
+          <li class="nav-item">
+            <a class="nav-link" href="#">Matches</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Lists</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Messages</a>
+          </li>
+        </ul>
+      </div>
+      <div ngbDropdown *ngIf="currentUser$ | async">
+        <a ngbDropdownToggle class="pointer" role="button">Welcome!</a>
+        <div ngbDropdownMenu>
+          <a ngbDropdownItem href="#">Profile</a>
+          <a ngbDropdownItem (click)="logout()">Logout</a>
+        </div>
+      </div>
+      <form
+        *ngIf="(currentUser$ | async) === null"
+        #loginForm="ngForm"
+        class="d-flex"
+        (ngSubmit)="login()"
+        autocomplete="off"
+      >
+        <input
+          class="form-control me-2"
+          type="text"
+          placeholder="Username"
+          name="username"
+          [(ngModel)]="model.username"
+          aria-label="Username"
+        />
+        <input
+          class="form-control me-2"
+          type="password"
+          name="password"
+          [(ngModel)]="model.password"
+          placeholder="Password"
+          aria-label="Password"
+        />
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</nav>
