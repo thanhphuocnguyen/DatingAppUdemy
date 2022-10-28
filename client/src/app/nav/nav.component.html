@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <div
       class="collapse navbar-collapse justify-content-between"
-      id="navbarSupportedContent"
+      id="navbarColor01"
     >
       <div class="d-flex">
         <a class="navbar-brand" routerLink="/" routerLinkActive="active">
@@ -45,11 +45,11 @@
           </ng-container>
         </ul>
       </div>
-      <div ngbDropdown>
+      <div class="navbar-nav" ngbDropdown>
         <ng-container *ngIf="currentUser$ | async as user">
           <a
             ngbDropdownToggle
-            class="text-decoration-none"
+            class="text-decoration-none nav-link active"
             style="cursor: pointer"
             >Welcome {{ user.userName | titlecase }}</a
           >
@@ -75,7 +75,7 @@
           aria-label="Username"
         />
         <input
-          class="form-control me-2"
+          class="form-control me-sm-2"
           type="password"
           name="password"
           [(ngModel)]="model.password"
