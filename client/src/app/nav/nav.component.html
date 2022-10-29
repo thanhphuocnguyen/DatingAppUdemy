@@ -43,6 +43,11 @@
               >
             </li>
           </ng-container>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/buggy" routerLinkActive="active"
+              >Buggy</a
+            >
+          </li>
         </ul>
       </div>
       <div class="navbar-nav" ngbDropdown>
@@ -67,7 +72,7 @@
         autocomplete="off"
       >
         <input
-          class="form-control me-2"
+          class="form-control me-2 my-auto"
           type="text"
           placeholder="Username"
           name="username"
@@ -75,14 +80,16 @@
           aria-label="Username"
         />
         <input
-          class="form-control me-sm-2"
+          class="form-control me-sm-2 my-auto"
           type="password"
           name="password"
           [(ngModel)]="model.password"
           placeholder="Password"
           aria-label="Password"
         />
-        <button class="btn btn-outline-success" type="submit">Login</button>
+        <button class="btn btn-outline-success btn-sm" type="submit">
+          Login
+        </button>
       </form>
     </div>
   </div>

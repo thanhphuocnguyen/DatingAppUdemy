@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { AccountService } from './../_services/account.service';
+import { AccountService } from '../_services/account.service';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,

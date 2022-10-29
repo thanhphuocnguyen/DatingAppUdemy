@@ -1,4 +1,4 @@
-import { AccountService } from './../_services/account.service';
+import { AccountService } from '../_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Observable } from 'rxjs';
@@ -25,13 +25,12 @@ export class NavComponent implements OnInit {
 
   login() {
     this.accountService.login(this.model).subscribe(
-      (response) => {
+      (_response) => {
         this.router.navigateByUrl('/members');
         this.toastr.success('Logged in successfully');
       },
       (err) => {
         console.log(err);
-        this.toastr.error(err.error);
       }
     );
   }
