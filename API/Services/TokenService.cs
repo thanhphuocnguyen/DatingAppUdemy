@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services;
 
 public class TokenService : ITokenService
 {
-    private readonly IConfiguration _config;
     private readonly SymmetricSecurityKey _key;
     public TokenService(IConfiguration config)
     {
