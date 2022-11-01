@@ -1,6 +1,6 @@
 import { AccountService } from '../_services/account.service';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../interfaces/user';
+import { User } from '../_model/user';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
