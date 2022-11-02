@@ -56,10 +56,10 @@
             ngbDropdownToggle
             class="text-decoration-none nav-link active"
             style="cursor: pointer"
-            >Welcome {{ user.username | titlecase }}</a
+            >Welcome {{ user.userName | titlecase }}</a
           >
           <div ngbDropdownMenu>
-            <a ngbDropdownItem href="#">Profile</a>
+            <a ngbDropdownItem routerLink="/member/edit">Profile</a>
             <a ngbDropdownItem (click)="logout()">Logout</a>
           </div>
         </ng-container>
