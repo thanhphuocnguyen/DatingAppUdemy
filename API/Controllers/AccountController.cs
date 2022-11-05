@@ -9,6 +9,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using API.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +19,10 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
+            _mapper = mapper;
             _tokenService = tokenService;
             _context = context;
         }
@@ -37,14 +40,23 @@ namespace API.Controllers
             {
                 UserName = registerDto.UserName.ToLower(),
                 Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                City = registerDto.City,
+                Country = registerDto.Country,
+                DateOfBirth = registerDto.DateOfBirth,
+                KnownAs = registerDto.KnownAs,
+                Gender = registerDto.Gender
             };
+
+
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
             return new UserDto
             {
                 UserName = newUser.UserName,
                 Token = _tokenService.CreateToken(newUser),
+                // PhotoUrl = newUser.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                KnownAs = newUser.KnownAs
             };
         }
 
