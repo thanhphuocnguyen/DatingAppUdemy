@@ -52,6 +52,11 @@
       </div>
       <div class="navbar-nav" ngbDropdown>
         <ng-container *ngIf="currentUser$ | async as user">
+          <img
+            class="avatar"
+            src="{{ user.photoUrl }}"
+            alt="{{ user.userName }}"
+          />
           <a
             ngbDropdownToggle
             class="text-decoration-none nav-link active"
@@ -77,7 +82,7 @@
           placeholder="Username"
           name="username"
           [(ngModel)]="model.username"
-          aria-label="Username"
+          aria-label="UserName"
         />
         <input
           class="form-control me-sm-2 my-auto"

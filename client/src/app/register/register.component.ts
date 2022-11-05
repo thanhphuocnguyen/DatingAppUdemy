@@ -20,16 +20,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   register() {
-    this.accountService.register(this.model).subscribe(
-      (res) => {
-        this.toastr.success('register successfully');
-        this.cancel();
-      },
-      (err: any) => {
-        console.log(err.error);
-        this.toastr.error(err.error);
-      }
-    );
+    this.accountService.register(this.model).subscribe((res) => {
+      this.toastr.success('register successfully');
+      this.cancel();
+    });
   }
 
   cancel() {

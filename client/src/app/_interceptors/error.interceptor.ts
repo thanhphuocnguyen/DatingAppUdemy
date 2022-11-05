@@ -36,14 +36,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 throw modalStateErrors.flat();
               } else {
                 this.toastr.error(
-                  error.statusText === 'OK' ? 'Bad request' : error.statusText,
+                  error.statusText === 'OK' ? error.error : error.statusText,
                   error.status.toString()
                 );
               }
               break;
             case HttpStatusCode.Unauthorized:
               this.toastr.error(
-                error.statusText === 'OK' ? 'Unauthorized' : error.statusText,
+                error.statusText === 'OK' ? error.error : error.statusText,
                 error.status.toString()
               );
               break;

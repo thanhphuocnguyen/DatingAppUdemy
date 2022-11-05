@@ -44,14 +44,14 @@ namespace API.Controllers
             return new UserDto
             {
                 UserName = newUser.UserName,
-                Token = _tokenService.CreateToken(newUser)
+                Token = _tokenService.CreateToken(newUser),
             };
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
+            var user = await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == loginDto.UserName);
 
             if (user == null)
             {
@@ -66,15 +66,18 @@ namespace API.Controllers
                     return BadRequest("Invalid password");
                 }
             }
+            var token = _tokenService.CreateToken(user);
+            var photoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url;
             return new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = token,
+                PhotoUrl = photoUrl
             };
         }
-        private async Task<bool> IsUserRegistered(string userName)
+        private async Task<bool> IsUserRegistered(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == userName.ToLower());
+            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
         }
 
     }
