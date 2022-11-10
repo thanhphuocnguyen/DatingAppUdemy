@@ -55,8 +55,9 @@ namespace API.Controllers
             {
                 UserName = newUser.UserName,
                 Token = _tokenService.CreateToken(newUser),
-                // PhotoUrl = newUser.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                KnownAs = newUser.KnownAs
+                PhotoUrl = null,
+                KnownAs = newUser.KnownAs,
+                Gender = newUser.Gender
             };
         }
 
@@ -84,7 +85,9 @@ namespace API.Controllers
             {
                 UserName = user.UserName,
                 Token = token,
-                PhotoUrl = photoUrl
+                PhotoUrl = photoUrl,
+                Gender = user.Gender,
+                KnownAs = user.KnownAs
             };
         }
         private async Task<bool> IsUserRegistered(string username)

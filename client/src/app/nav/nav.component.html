@@ -50,24 +50,23 @@
           </li>
         </ul>
       </div>
-      <div class="navbar-nav btn-group" dropdown>
-        <ng-container *ngIf="currentUser$ | async as user">
-          <div
+      <div
+        class="navbar-nav btn-group"
+        dropdown
+        *ngIf="currentUser$ | async as user"
+      >
+        <ng-container>
+          <img
+            class="avatar"
+            src="{{ user.photoUrl || 'assets/user.png' }}"
+            alt="{{ user.knownAs }}"
+          />
+          <a
             dropdownToggle
-            type="button"
-            class="btn btn-primary dropdown-toggle d-flex"
+            class="text-decoration-none nav-link active dropdown-toggle"
+            style="cursor: pointer"
+            >Welcome {{ user.knownAs | titlecase }}</a
           >
-            <img
-              class="avatar"
-              src="{{ user.photoUrl || 'assets/user.png' }}"
-              alt="{{ user.userName }}"
-            />
-            <a
-              class="text-decoration-none nav-link active"
-              style="cursor: pointer"
-              >Welcome {{ user.userName | titlecase }}</a
-            >
-          </div>
           <div *dropdownMenu class="dropdown-menu">
             <a class="dropdown-item" routerLink="/member/edit">Profile</a>
             <a class="dropdown-item" (click)="logout()">Logout</a>

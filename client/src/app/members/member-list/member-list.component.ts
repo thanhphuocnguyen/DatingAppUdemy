@@ -1,7 +1,13 @@
+import { AccountService } from './../../_services/account.service';
+import { Pagination } from './../../_model/pagination';
 import { Observable } from 'rxjs';
 import { MembersService } from './../../_services/members.service';
 import { Component, OnInit } from '@angular/core';
 import { Member } from 'src/app/_model/member';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { UserParams } from 'src/app/_model/userParams';
+import { User } from 'src/app/_model/user';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-member-list',
@@ -9,16 +15,44 @@ import { Member } from 'src/app/_model/member';
   styleUrls: ['./member-list.component.scss'],
 })
 export class MemberListComponent implements OnInit {
-  members$: Observable<Member[]>;
-  constructor(private memberService: MembersService) {}
+  // members$: Observable<Member[]>;
+  members: Member[];
+  pagination: Pagination;
+  userParams: UserParams;
+  user: User;
+  genderList = [
+    { value: 'male', display: 'Males' },
+    { value: 'female', display: 'Felmale' },
+  ];
 
-  ngOnInit(): void {
-    this.members$ = this.memberService.getMembers();
+  constructor(
+    private memberService: MembersService,
+    private accountService: AccountService
+  ) {
+    this.userParams = this.memberService.getUserParams();
   }
 
-  // loadMembers() {
-  //   this.memberService.getMembers().subscribe((members) => {
-  //     this.members = members;
-  //   });
-  // }
+  ngOnInit(): void {
+    // this.members$ = this.memberService.getMembers();
+    this.loadMembers();
+  }
+
+  resetFilter(): void {
+    this.userParams = this.memberService.resetUserParams();
+    this.loadMembers();
+  }
+
+  loadMembers() {
+    this.memberService.setUserParams(this.userParams);
+    this.memberService.getMembers(this.userParams).subscribe((res) => {
+      this.members = res.result;
+      this.pagination = res.pagination;
+    });
+  }
+
+  pageChanged(event: PageChangedEvent) {
+    this.userParams.pageNumber = event.page;
+    this.memberService.setUserParams(this.userParams);
+    this.loadMembers();
+  }
 }
