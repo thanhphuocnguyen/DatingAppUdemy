@@ -1,3 +1,4 @@
+import { MembersService } from 'src/app/_services/members.service';
 import { AccountService } from '../_services/account.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../_model/user';
@@ -15,6 +16,7 @@ export class NavComponent implements OnInit {
   currentUser$: Observable<User>;
   constructor(
     private accountService: AccountService,
+    private memberService: MembersService,
     private router: Router,
     private toastr: ToastrService
   ) {}
@@ -37,6 +39,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/');
+    this.memberService.resetUserParams();
     this.accountService.logout();
   }
 }

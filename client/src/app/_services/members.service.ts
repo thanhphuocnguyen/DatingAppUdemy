@@ -113,6 +113,23 @@ export class MembersService {
     );
   }
 
+  addLike(username: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}likes/${username}`, {});
+  }
+
+  getLikes(
+    predicate: string,
+    pageNumber: number,
+    pageSize: number
+  ): Observable<PaginatedResult<Partial<Member[]>>> {
+    let params = this.getPaginationHeaders(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+    return this.getPaginatedResult<Partial<Member[]>>(
+      this.baseUrl + 'likes',
+      params
+    );
+  }
+
   private getPaginatedResult<T>(url: string, params: HttpParams) {
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
 
