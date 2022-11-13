@@ -1,7 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from '../_model/user';
+import { User } from '../_models/user';
 import {
   AbstractControl,
   FormBuilder,

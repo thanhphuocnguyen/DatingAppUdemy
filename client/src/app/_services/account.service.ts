@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../_model/user';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root',

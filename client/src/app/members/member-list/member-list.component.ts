@@ -1,12 +1,12 @@
 import { AccountService } from './../../_services/account.service';
-import { Pagination } from './../../_model/pagination';
+import { Pagination } from '../../_models/pagination';
 import { Observable } from 'rxjs';
 import { MembersService } from './../../_services/members.service';
 import { Component, OnInit } from '@angular/core';
-import { Member } from 'src/app/_model/member';
+import { Member } from 'src/app/_models/member';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { UserParams } from 'src/app/_model/userParams';
-import { User } from 'src/app/_model/user';
+import { UserParams } from 'src/app/_models/userParams';
+import { User } from 'src/app/_models/user';
 import { take } from 'rxjs/operators';
 
 @Component({

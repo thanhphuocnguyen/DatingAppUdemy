@@ -1,10 +1,10 @@
-import { Photo } from './../../_model/photo';
+import { Photo } from '../../_models/photo';
 import { ToastrService } from 'ngx-toastr';
 import { MembersService } from './../../_services/members.service';
-import { User } from './../../_model/user';
+import { User } from '../../_models/user';
 import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
-import { Member } from 'src/app/_model/member';
+import { Member } from 'src/app/_models/member';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';

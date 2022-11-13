@@ -1,8 +1,8 @@
 import { MembersService } from './../../_services/members.service';
 import { AccountService } from './../../_services/account.service';
-import { Member } from 'src/app/_model/member';
+import { Member } from 'src/app/_models/member';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { User } from 'src/app/_model/user';
+import { User } from 'src/app/_models/user';
 import { take } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
