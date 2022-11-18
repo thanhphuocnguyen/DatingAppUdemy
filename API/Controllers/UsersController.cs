@@ -29,12 +29,11 @@ public class UsersController : BaseAPIController
         _mapper = mapper;
         this.userRepository = userRepository;
     }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
     {
         var user = await userRepository.GetUserByUserNameAsync(User.GetUsername());
-        userParams.CurrentUserame = user.UserName;
+        userParams.CurrentUsername = user.UserName;
         Console.WriteLine(userParams.OrderBy);
         if (string.IsNullOrEmpty(userParams.Gender))
         {
@@ -44,10 +43,13 @@ public class UsersController : BaseAPIController
         Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalPages, users.TotalCount);
         return Ok(users);
     }
+
+    [Authorize(Roles = "Member")]
     [HttpGet("{username}", Name = "GetUser")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
         var user = await userRepository.GetMemberByUserNameAsync(username);
+        if (user == null) return BadRequest("There are no user matching the username");
         return user;
     }
     // [HttpGet("{id}")]

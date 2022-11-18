@@ -22,13 +22,10 @@ export class MemberListComponent implements OnInit {
   user: User;
   genderList = [
     { value: 'male', display: 'Males' },
-    { value: 'female', display: 'Felmale' },
+    { value: 'female', display: 'Females' },
   ];
 
-  constructor(
-    private memberService: MembersService,
-    private accountService: AccountService
-  ) {
+  constructor(private memberService: MembersService) {
     this.userParams = this.memberService.getUserParams();
   }
 

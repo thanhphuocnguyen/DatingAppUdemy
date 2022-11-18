@@ -75,8 +75,8 @@ export class MembersService {
     );
   }
 
-  getMemberByUserName(userName: string): Observable<Member> {
-    // const member = this.members.find((member) => member.userName === userName);
+  getMemberByUserName(username: string): Observable<Member> {
+    // const member = this.members.find((member) => member.username === username);
     // if (member !== undefined) {
     //   return of(member);
     // }
@@ -84,12 +84,12 @@ export class MembersService {
       .reduce((acc, curr) => {
         return [...acc, ...curr.result];
       }, [])
-      .find((mem: Member) => mem.userName === userName);
+      .find((mem: Member) => mem.userName === username);
     console.log(memeber);
     if (memeber) {
       return of(memeber);
     }
-    return this.http.get<Member>(this.baseUrl + 'users/' + userName);
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
   updateMember(member: Member): Observable<void> {
