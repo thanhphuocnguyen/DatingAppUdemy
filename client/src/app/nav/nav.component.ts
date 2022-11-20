@@ -30,6 +30,7 @@ export class NavComponent implements OnInit {
       (_response) => {
         this.router.navigateByUrl('/members');
         this.toastr.success('Logged in successfully');
+        this.memberService.resetUserParams();
       },
       (err) => {
         console.log(err);
@@ -39,7 +40,6 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.router.navigateByUrl('/');
-    this.memberService.resetUserParams();
     this.accountService.logout();
   }
 }

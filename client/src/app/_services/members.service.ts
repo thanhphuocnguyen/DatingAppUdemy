@@ -85,7 +85,6 @@ export class MembersService {
         return [...acc, ...curr.result];
       }, [])
       .find((mem: Member) => mem.userName === username);
-    console.log(memeber);
     if (memeber) {
       return of(memeber);
     }

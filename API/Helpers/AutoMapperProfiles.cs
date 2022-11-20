@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using API.DTOs;
 using API.Entities;
@@ -39,5 +40,7 @@ public class AutoMapperProfiles : Profile
                         x => x.IsMain).Url
                 )
             );
+        CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
     }
+
 }
