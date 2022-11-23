@@ -14,18 +14,22 @@ namespace API.Data;
 
 public class UserRepository : IUserRepository
 {
-    private readonly DataContext context;
+    private readonly DataContext _context;
     private readonly IMapper _mapper;
+
+    public UserRepository()
+    {
+    }
 
     public UserRepository(DataContext context, IMapper mapper)
     {
         _mapper = mapper;
-        this.context = context;
+        _context = context;
     }
 
     public async Task<MemberDto> GetMemberByUserNameAsync(string username)
     {
-        return await context.Users.Where(
+        return await _context.Users.Where(
             x => x.UserName == username
             ).ProjectTo<MemberDto>(
                 _mapper.ConfigurationProvider
@@ -34,7 +38,7 @@ public class UserRepository : IUserRepository
 
     public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
     {
-        var query = context.Users.AsQueryable();
+        var query = _context.Users.AsQueryable();
         query = query.Where(u => u.UserName != userParams.CurrentUsername);
         query = query.Where(u => u.Gender == userParams.Gender);
         var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
@@ -54,27 +58,27 @@ public class UserRepository : IUserRepository
 
     public async Task<AppUser> GetUserByIdAsync(int id)
     {
-        return await context.Users.Include(p => p.Photos).SingleOrDefaultAsync(p => p.Id == id);
+        return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<AppUser> GetUserByUserNameAsync(string username)
     {
-        return await context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
+        return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
+    }
+
+    public async Task<string> GetUserGender(string username)
+    {
+        return await _context.Users.Where(x => x.UserName == username).Select(x => x.Gender).FirstOrDefaultAsync();
     }
 
     public async Task<PagedList<AppUser>> GetUsersAsync(UserParams userParams)
     {
-        var query = context.Users.Include(p => p.Photos).AsTracking();
+        var query = _context.Users.Include(p => p.Photos).AsTracking();
         return await PagedList<AppUser>.CreateAsync(query, userParams.PageSize, userParams.PageNumber);
-    }
-
-    public async Task<bool> SaveAllAsync()
-    {
-        return await context.SaveChangesAsync() > 0;
     }
 
     public void Update(AppUser user)
     {
-        context.Entry(user).State = EntityState.Modified;
+        _context.Entry(user).State = EntityState.Modified;
     }
 }

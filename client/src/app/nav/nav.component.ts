@@ -30,6 +30,7 @@ export class NavComponent implements OnInit {
       (_response) => {
         this.router.navigateByUrl('/members');
         this.toastr.success('Logged in successfully');
+        this.model = {};
         this.memberService.resetUserParams();
       },
       (err) => {
