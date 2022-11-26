@@ -8,6 +8,7 @@ import { Member } from 'src/app/_models/member';
 import { AccountService } from 'src/app/_services/account.service';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
+import { BusyService } from 'src/app/_services/busy.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -24,7 +25,8 @@ export class PhotoEditorComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private memberService: MembersService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private busyService: BusyService
   ) {
     this.accountService.currentUser$
       .pipe(take(1))
@@ -69,6 +71,11 @@ export class PhotoEditorComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
     };
+
+    this.uploader.onProgressItem = () => {
+      this.busyService.busy();
+    };
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
         const photo: Photo = JSON.parse(response);
@@ -78,6 +85,7 @@ export class PhotoEditorComponent implements OnInit {
           this.member.photoUrl = photo.url;
           this.accountService.setCurrentUser(this.user);
         }
+        this.busyService.idle();
       }
     };
   }

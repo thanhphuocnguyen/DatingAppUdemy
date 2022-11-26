@@ -1,21 +1,21 @@
 <ng-container>
-  <button (click)="getServerError()" class="btn btn-outline-primary mr-2">
+  <button (click)="getServerError()" class="btn btn-outline-primary me-2">
     Get Server Err
   </button>
-  <button (click)="getBadRequestError()" class="btn btn-outline-primary mr-2">
+  <button (click)="getBadRequestError()" class="btn btn-outline-primary me-2">
     Get Bad request Err
   </button>
-  <button (click)="getAuthError()" class="btn btn-outline-primary mr-2">
+  <button (click)="getAuthError()" class="btn btn-outline-primary me-2">
     Get Auth Err
   </button>
-  <button (click)="get404Error()" class="btn btn-outline-primary mr-2">
+  <button (click)="get404Error()" class="btn btn-outline-primary me-2">
     Get not found Err
   </button>
-  <button (click)="getValidationError()" class="btn btn-outline-primary mr-2">
+  <button (click)="getValidationError()" class="btn btn-outline-primary me-2">
     Get validation Err
   </button>
   <ng-container *ngIf="validationErr.length > 0">
-    <div class="row mt-5">
+    <div class="d-flex mt-5">
       <ul class="text-danger">
         <li *ngFor="let err of validationErr">{{ err }}</li>
       </ul>

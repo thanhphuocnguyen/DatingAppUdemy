@@ -47,6 +47,7 @@ public static class IdentityServiceExtensions
         {
             opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
             opt.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
+            opt.AddPolicy("RequireMemberRole", policy => policy.RequireRole("Member"));
         });
 
         return services;

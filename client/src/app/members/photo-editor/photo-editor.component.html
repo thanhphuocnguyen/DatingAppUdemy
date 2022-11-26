@@ -1,4 +1,4 @@
-<div class="row">
+<div class="d-flex">
   <div class="col-2 img-wrapper" *ngFor="let photo of member.photos" or>
     <img
       src="{{ photo.url }}"
@@ -17,7 +17,7 @@
       <button
         [disabled]="photo.isMain || !photo.isApproved"
         [ngClass]="photo.isMain ? 'btn-success active' : 'btn-outline-success'"
-        class="btn btn-sm mr-3"
+        class="btn btn-sm me-3"
         (click)="setMainPhoto(photo)"
       >
         Main
@@ -28,7 +28,7 @@
     </div>
   </div>
 </div>
-<div class="row mt-5">
+<div class="d-flex mt-5">
   <div class="col-md-3">
     <h3>Add Photos</h3>
 

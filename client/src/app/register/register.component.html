@@ -5,19 +5,25 @@
 >
   <h2 class="text-center text-primary">Sign up</h2>
   <hr />
-  <div class="form-group">
+  <div class="d-flex mx-2">
     <label for="" style="margin-right: 10px" class="control-label"
       >Gender:</label
     >
-    <label for="" class="radio-inline">
-      <input type="radio" value="male" formControlName="gender" /> Male
+    <label for="" class="form-check-label">
+      <input
+        type="radio"
+        value="male"
+        formControlName="gender"
+        class="form-check-input"
+      />
+      Male
     </label>
-    <label for="" class="radio-inline">
+    <label for="" class="form-check-label">
       <input
         type="radio"
         value="female"
         formControlName="gender"
-        class="ml-3"
+        class="ms-3 form-check-input"
       />
       Female
     </label>
@@ -53,9 +59,9 @@
     [formControl]="$any(registerForm.controls['confirmPassword'])"
     [type]="'password'"
   ></app-text-input>
-  <div class="form-group text-center">
+  <div class="d-flex mx-2 text-center">
     <button
-      class="btn btn-success mr-2"
+      class="btn btn-success me-2"
       [disabled]="!registerForm.valid"
       type="submit"
     >
