@@ -1,1 +1,48 @@
-<p>photo-management works!</p>
+<div class="row">
+  <div class="col-3" *ngFor="let photo of photos">
+    <div>
+      <h3>{{ photo.username }}</h3>
+      <div class="card mb-4">
+        <div class="card-img-wrapper">
+          <img
+            src="{{ photo.url || 'assets/user.png' }}"
+            alt="{{ photo.username }}"
+            class="card-img-top"
+          />
+        </div>
+        <ul class="list-inline text-center mt-4">
+          <li class="list-inline-item">
+            <button
+              class="btn btn-success btn-sm"
+              (click)="approvePhoto(photo.id)"
+            >
+              Approve
+            </button>
+          </li>
+          <li class="list-inline-item">
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="rejectPhoto(photo.id)"
+            >
+              Reject
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center my-4" *ngIf="pagination">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

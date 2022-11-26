@@ -22,6 +22,7 @@ public class DataContext : IdentityDbContext<AppUser, AppRole,
     public DbSet<Message> Messages { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Connection> Connections { get; set; }
+    public DbSet<Photo> Photos { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -62,7 +63,11 @@ public class DataContext : IdentityDbContext<AppUser, AppRole,
             .HasOne(u => u.Sender)
             .WithMany(m => m.MessagesSent)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Photo>().HasQueryFilter(photo => photo.IsApproved);
+
         modelBuilder.ApplyUtcDateTimeConverter();
+
     }
 
 }

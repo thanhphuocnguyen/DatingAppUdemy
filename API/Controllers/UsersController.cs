@@ -1,20 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using API.Data;
-using API.DTOs;
-using API.Entities;
-using API.Extensions;
 using API.Helpers;
-using API.Interfaces;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 namespace API.Controllers;
 [Authorize]
 public class UsersController : BaseAPIController
@@ -48,7 +32,8 @@ public class UsersController : BaseAPIController
     [HttpGet("{username}", Name = "GetUser")]
     public async Task<ActionResult<MemberDto>> GetUser(string username)
     {
-        var user = await _unitOfWork.UserRepository.GetMemberByUserNameAsync(username);
+        var currentUsername = User.GetUsername();
+        var user = await _unitOfWork.UserRepository.GetMemberByUserNameAsync(username, currentUsername == username);
         if (user == null) return BadRequest("There are no user matching the username");
         return user;
     }
@@ -83,10 +68,6 @@ public class UsersController : BaseAPIController
             Url = result.SecureUrl.AbsoluteUri,
             PublicId = result.PublicId
         };
-        if (user.Photos.Count == 0)
-        {
-            photo.IsMain = true;
-        }
         user.Photos.Add(photo);
         if (await _unitOfWork.Complete())
         {

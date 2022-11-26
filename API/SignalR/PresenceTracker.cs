@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace API.SignalR;
 
 public class PresenceTracker
@@ -40,7 +35,7 @@ public class PresenceTracker
             if (OnlineUsers[username].Count == 0)
             {
                 OnlineUsers.Remove(username);
-                isOffline=true;
+                isOffline = true;
             }
         }
         return Task.FromResult(isOffline);

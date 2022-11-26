@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -9,6 +10,11 @@ namespace API.Data;
 
 public static class Seed
 {
+    public static async Task ClearConnections(DataContext context)
+    {
+        context.Connections.RemoveRange(context.Connections);
+        await context.SaveChangesAsync();
+    }
     public static async Task SeedUserData(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
         if (await userManager.Users.AnyAsync()) return;
@@ -26,6 +32,8 @@ public static class Seed
         foreach (var user in users)
         {
             user.UserName = user.UserName.ToLower();
+            user.CreatedAt = DateTime.SpecifyKind(user.CreatedAt, DateTimeKind.Utc);
+            user.LastActive = DateTime.SpecifyKind(user.LastActive, DateTimeKind.Utc);
             await userManager.CreateAsync(user, "Pa$$w0rd");
             await userManager.AddToRoleAsync(user, "Member");
         }

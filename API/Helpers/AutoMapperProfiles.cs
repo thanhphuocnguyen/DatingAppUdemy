@@ -1,10 +1,3 @@
-using System;
-using System.Linq;
-using API.DTOs;
-using API.Entities;
-using API.Extensions;
-using AutoMapper;
-
 namespace API.Helpers;
 
 public class AutoMapperProfiles : Profile
@@ -40,6 +33,8 @@ public class AutoMapperProfiles : Profile
                         x => x.IsMain).Url
                 )
             );
+        CreateMap<Photo, PhotoForApprovalDto>()
+        .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.AppUser.UserName));
     }
 
 }

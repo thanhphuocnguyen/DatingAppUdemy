@@ -1,0 +1,16 @@
+global using System;
+global using API.Data;
+global using API.Entities;
+global using API.Extensions;
+global using API.Middlewares;
+global using API.SignalR;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using API.DTOs;
+global using API.Interfaces;
+global using AutoMapper;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authorization;
